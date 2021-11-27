@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Board from "./Board";
 import calculateWinner from "./CalculateWinner";
 import "./game.css";
+import position from "./Position";
 
 class Game extends Component {
   constructor(props) {
@@ -10,6 +11,10 @@ class Game extends Component {
       history: [
         {
           squares: Array(9).fill(null),
+          position: {
+            row: 0,
+            column: 0,
+          },
         },
       ],
       stepNumber: 0,
@@ -21,12 +26,13 @@ class Game extends Component {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const squares = current.squares.slice();
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
     squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
-      history: history.concat([{ squares: squares }]),
+      history: history.concat([{ squares: squares, position: position(i) }]),
       stepNumber: history.length,
       xIsNext: !this.state.xIsNext,
     });
@@ -49,6 +55,11 @@ class Game extends Component {
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          {move
+            ? ` ${move % 2 === 0 ? "O" : "X"} in [${
+                history[move].position.row
+              }, ${history[move].position.column}]`
+            : " null"}
         </li>
       );
     });
