@@ -56,7 +56,9 @@ export default class Board extends Component {
           {this.renderSquare(7)}
           {this.renderSquare(8)}
         </div>
-        <button className="bt-reset">Reset</button>
+        <button className="bt-reset" onClick={this.props.handleReset}>
+          Reset
+        </button>
       </div>
     );
   }

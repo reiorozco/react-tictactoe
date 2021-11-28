@@ -38,6 +38,22 @@ class Game extends Component {
     });
   }
 
+  handleReset() {
+    this.setState({
+      history: [
+        {
+          squares: Array(9).fill(null),
+          position: {
+            row: 0,
+            column: 0,
+          },
+        },
+      ],
+      stepNumber: 0,
+      xIsNext: true,
+    });
+  }
+
   jumpTo(step) {
     this.setState({
       stepNumber: step,
@@ -55,11 +71,14 @@ class Game extends Component {
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
-          {move
-            ? ` ${move % 2 === 0 ? "O" : "X"} in [${
-                history[move].position.row
-              }, ${history[move].position.column}]`
-            : " null"}
+          {move ? (
+            <>
+              <b> {move % 2 === 0 ? "O" : "X"}</b> in [
+              {history[move].position.row}, {history[move].position.column}]
+            </>
+          ) : (
+            ""
+          )}
         </li>
       );
     });
@@ -77,6 +96,7 @@ class Game extends Component {
           <Board
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            handleReset={() => this.handleReset()}
           />
         </div>
         <div className="game-info">
