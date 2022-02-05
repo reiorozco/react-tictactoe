@@ -8,6 +8,13 @@ ul {
   padding-left: 30px;
 }
 
+.board-row {
+  display: grid;
+  grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+  /* grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr); */
+}
+
 .board-row:after {
   clear: both;
   content: "";

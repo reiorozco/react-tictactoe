@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import Board from "./Board";
-import calculateWinner from "./CalculateWinner";
+import Board from "../Board/Board";
+import calculateWinner from "../helpers/CalculateWinner";
 import "./game.css";
-import position from "./Position";
+import position from "../helpers/Position";
 
 class Game extends Component {
   constructor(props) {
@@ -67,7 +67,7 @@ class Game extends Component {
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
-      const desc = move ? `Go to move #${move}.` : "Go to game start";
+      const desc = move ? `Go to move #${move}.` : "Go to Game start";
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
